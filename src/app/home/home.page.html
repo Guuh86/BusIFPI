@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-title>
+    <ion-item id="remover">
+      <p slot="start" class="sair">BusIFPI</p>
+      <img slot="end" src="../../assets/img/logo.png">
+    </ion-item>
+  </ion-title>
+</ion-header>
+
+  <ion-content>
+  <div padding>
+    <ion-slides pager="true" id="color" #IonSlides>
+      <ion-slide padding>
+          <p>
+            Bem-Vindo(a) ao BusIFPI!
+            Para começar a usar o nosso aplicativo,<br/>
+            basta selecionar um dos botões abaixo:
+          </p>
+      </ion-slide>
+      <ion-slide padding>
+          <p>
+            Rastreamento:<br/>
+            Use nossa ferramenta para rastrear e saber<br/>
+            a localização do ônibus escolar da sua instituição.
+          </p>
+      </ion-slide>
+      <ion-slide padding>
+          <p>
+            Novato no instituto? Não se preocupe!<br/>
+            Temos uma ferramenta que te ajuda a localizar onde<br/>
+            o ônibus faz as principais paradas!<br/>
+          </p>
+      </ion-slide>
+      <ion-slide padding>
+          <p>
+            Ah! A gente também te avisa quando o ônibus começa uma rota,<br/>
+            também quando ele não for rodar ou caso ele esteja<br/>
+            danificado! Que legal, né?
+          </p>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div id="bt" padding>
+    <ion-button padding expand="block" color="danger" [routerLink]="['/login']"> Sou o Motorista <ion-icon name="md-bus" slot="end"></ion-icon></ion-button>
+    <ion-button padding expand="block" color="success" [routerLink]="['/aluno-menu']"> Sou o Aluno <ion-icon name="ios-man" slot="end"></ion-icon></ion-button>
+  </div>
+    
+</ion-content>
+
+<ion-footer>
+  <p class="name">IFPI - Campus Parnaíba</p>
+</ion-footer>

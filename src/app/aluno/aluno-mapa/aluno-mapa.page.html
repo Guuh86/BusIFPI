@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="aluno-menu"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div #map id="map"></div>
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="full" color="success" (click)="rotaManha()" (click)="loadingManha()"  *ngIf="!isTracking">
+    <ion-icon  slot="start" name="partly-sunny"></ion-icon>
+    Ver Rota Manhã/Tarde
+  </ion-button>
+  <ion-button color="tertiary" expand="full" (click)="rotaNoite()" (click)="loadingNoite()" *ngIf="isTracking">
+    <ion-icon slot="start" name="moon"></ion-icon>
+    Ver Rota Noite
+  </ion-button>
+</ion-footer>
