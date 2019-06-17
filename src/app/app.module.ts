@@ -18,6 +18,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AuthService } from './auth.service';
 
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +40,9 @@ import { AuthService } from './auth.service';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Geolocation,
-    AuthService
+    AuthService,
+    InAppBrowser,
+    EmailComposer
   ],
   bootstrap: [AppComponent]
 })
