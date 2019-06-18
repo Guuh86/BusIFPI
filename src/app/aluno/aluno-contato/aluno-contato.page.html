@@ -8,30 +8,35 @@
 
 <ion-content>
   <h2 text-center padding>Encontrou algum erro ou deseja entrar em contato com os desenvolvedores?</h2>
-  
+
   <p text-center padding>Vai em frente! Abaixo estão as nossas opções para contato:</p>
 
   <div>
-    <ion-button expand="block" color="success" (click)="openWpp()"><ion-icon name="logo-whatsapp" slot="start"></ion-icon>WhatsApp</ion-button>
-    <ion-button expand="block" (click)="openFacebook()"><ion-icon name="logo-facebook" slot="start"></ion-icon>Facebook</ion-button>
+    <ion-button expand="block" color="success" (click)="openWpp()">
+      <ion-icon name="logo-whatsapp" slot="start"></ion-icon>WhatsApp
+    </ion-button>
+    <ion-button expand="block" (click)="openFacebook()">
+      <ion-icon name="logo-facebook" slot="start"></ion-icon>Facebook
+    </ion-button>
   </div>
 
-  <div padding>
+  <div padding id="email">
     <ion-list>
       <ion-item>
-          <ion-label position="floating">Seu E-mail</ion-label>
-          <ion-input type="text" [(ngModel)]="cc"></ion-input>
+        <ion-label position="floating">Seu e-mail</ion-label>
+        <ion-input type="text" [(ngModel)]="cc"></ion-input>
       </ion-item>
     </ion-list>
     <ion-list>
-        <ion-item>
-            <ion-label position="floating">Comentário</ion-label>
-            <ion-input type="text" [(ngModel)]="body"></ion-input>
-        </ion-item>
-      </ion-list>
-    
-    <ion-button expand="block" color="danger" (click)="openMail()"><ion-icon name="mail" slot="start"></ion-icon>Enviar E-mail</ion-button>
+      <ion-item>
+        <ion-label position="floating">Comentário</ion-label>
+        <ion-input type="text" [(ngModel)]="body"></ion-input>
+      </ion-item>
+    </ion-list>
   </div>
+  <ion-button expand="block" color="danger" (click)="openMail()">
+    <ion-icon name="mail" slot="start"></ion-icon>Enviar E-mail
+  </ion-button>
 
 </ion-content>
 

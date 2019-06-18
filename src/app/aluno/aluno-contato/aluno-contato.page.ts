@@ -22,11 +22,11 @@ export class AlunoContatoPage implements OnInit {
   }
 
   openFacebook(){
-    this.iab.create('https://fb.gg/samiraclose/');
+    this.iab.create('https://facebook.com/');
   }
 
   openWpp(){
-    this.iab.create('https://chat.whatsapp.com/GYcAlaCD1hz1DpgDxlPcVP');
+    this.iab.create('https://bit.ly/2ZzGFZR');
   }
 
   openMail(){
@@ -36,7 +36,7 @@ export class AlunoContatoPage implements OnInit {
       body: this.body,
       isHtml: true
     }
-    this.email.open({app:'gmail'});  
+    this.email.open(email);  
   }
 
 }
