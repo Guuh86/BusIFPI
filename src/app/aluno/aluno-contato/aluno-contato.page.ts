@@ -25,10 +25,6 @@ export class AlunoContatoPage implements OnInit {
     this.iab.create('https://facebook.com/');
   }
 
-  openWpp(){
-    this.iab.create('https://bit.ly/2ZzGFZR');
-  }
-
   openMail(){
     let email = {
       to: 'guh86@outlook.com',
