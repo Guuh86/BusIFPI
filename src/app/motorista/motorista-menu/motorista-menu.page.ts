@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
+import { AuthService } from 'src/app/auth.service';
+
 
 @Component({
   selector: 'app-motorista-menu',
@@ -10,10 +12,14 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 })
 export class MotoristaMenuPage implements OnInit {
 
-  constructor(private localNotifications: LocalNotifications) { }
+  constructor(private localNotifications: LocalNotifications, public authService: AuthService) { }
 
 
   ngOnInit() {
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   semRota() {

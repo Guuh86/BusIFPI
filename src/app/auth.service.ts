@@ -22,12 +22,11 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
+    this.entrando();
     this.firebaseAuth
       .auth
       .signInWithEmailAndPassword(email, password)
       .then(value => {
-        console.log('Você está logado!');
-        this.entrando();
         this.navCtrl.navigateRoot('motorista-menu')
       })
       .catch(err => {
@@ -37,9 +36,11 @@ export class AuthService {
   }
 
   logout() {
+    this.saindo();
     this.firebaseAuth
       .auth
       .signOut();
+      this.navCtrl.navigateRoot('home');
   }
 
   async presentAlert() {
@@ -52,8 +53,18 @@ export class AuthService {
 
   async entrando() {
     const loading = await this.loadingController.create({
-      message: 'Entrando no ônibus, aguarde..',
-      duration: 2000
+      message: 'Entrando, aguarde..',
+      duration: 3000,
+      spinner: 'bubbles'
+    });
+    await loading.present();
+  }
+
+  async saindo() {
+    const loading = await this.loadingController.create({
+      message: 'Saindo, aguarde..',
+      duration: 3000,
+      spinner: 'bubbles'
     });
     await loading.present();
   }
