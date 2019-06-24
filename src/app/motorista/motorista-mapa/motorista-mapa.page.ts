@@ -5,6 +5,9 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
+import { Device } from '@ionic-native/device/ngx';
+import * as firebase from 'Firebase';
+
 declare var google;
 
 @Component({
@@ -21,16 +24,31 @@ export class MotoristaMapaPage implements OnInit {
   lat: number;
   lng: number;
   myloc: any;
+  
+  ref = firebase.database().ref('geolocations/');
 
   constructor(
     public navCtrl: NavController,
     private platform: Platform,
     private geolocation: Geolocation,
-    private localNotifications: LocalNotifications
+    private localNotifications: LocalNotifications,
+    private device: Device
   ) {
     this.platform.ready().then(() => {
       this.startService();
-    })
+    });
+
+    this.ref.on('value', resp => {
+      this.deleteMarkers();
+      snapshotToArray(resp).forEach(data => {
+        if(data.uuid !== this.device.uuid) {
+          let image = 'assets/img/bus.png';
+          let updatelocation = new google.maps.LatLng(data.latitude,data.longitude);
+          this.addMarker(updatelocation,image);
+          this.setMapOnAll(this.map);
+        }
+      });
+    });
   }
 
   ngOnInit() {
@@ -59,12 +77,33 @@ export class MotoristaMapaPage implements OnInit {
     let watch = this.geolocation.watchPosition();
     watch.subscribe((data) => {
       this.deleteMarkers();
+      this.updateGeolocation(this.device.uuid, data.coords.latitude,data.coords.longitude);
       let updatelocation = new google.maps.LatLng(data.coords.latitude, data.coords.longitude);
       let image = 'assets/img/bus.png';
       this.addMarker(updatelocation, image);
       this.setMapOnAll(this.map);
+  
     });
   }
+
+  updateGeolocation(uuid, lat, lng) {
+    if(localStorage.getItem('mykey')) {
+      firebase.database().ref('geolocations/'+localStorage.getItem('mykey')).set({
+        uuid: uuid,
+        latitude: lat,
+        longitude : lng
+      });
+    } else {
+      let newData = this.ref.push();
+      newData.set({
+        uuid: uuid,
+        latitude: lat,
+        longitude: lng
+      });
+      localStorage.setItem('mykey', newData.key);
+    }
+  }
+
 
   addMarker(location, image) {
     let marker = new google.maps.Marker({
@@ -90,3 +129,15 @@ export class MotoristaMapaPage implements OnInit {
     this.markers = [];
   }
 }
+
+export const snapshotToArray = snapshot => {
+  let returnArr = [];
+
+  snapshot.forEach(childSnapshot => {
+      let item = childSnapshot.val();
+      item.key = childSnapshot.key;
+      returnArr.push(item);
+  });
+
+  return returnArr;
+};

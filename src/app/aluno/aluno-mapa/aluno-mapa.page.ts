@@ -2,6 +2,9 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Platform, LoadingController } from '@ionic/angular';
 
+import { Device } from '@ionic-native/device/ngx';
+import * as firebase from 'Firebase';
+
 declare var google: any;
 
 @Component({
@@ -19,11 +22,33 @@ export class AlunoMapaPage implements OnInit {
 
   loading: any;
 
+  markers = [];
+
+  ref = firebase.database().ref('geolocations/');
+
   constructor(
     private geolocation: Geolocation,
     private platform: Platform,
-    public loadingController: LoadingController
-  ) { }
+    public loadingController: LoadingController,
+    private device: Device
+  ) {
+    this.ref.on('value', resp => {
+      this.deleteMarkers();
+      snapshotToArray(resp).forEach(data => {
+        if(data.uuid !== this.device.uuid) {
+          let image = 'assets/img/bus.png';
+          let updatelocation = new google.maps.LatLng(data.latitude,data.longitude);
+          this.addMarker(updatelocation,image);
+          this.setMapOnAll(this.map);
+        }else {
+          let image = 'assets/imgs/blue-bike.png';
+          let updatelocation = new google.maps.LatLng(data.latitude,data.longitude);
+          this.addMarker(updatelocation,image);
+          this.setMapOnAll(this.map);
+        }
+      });
+    });
+  }
 
   async ngOnInit() {
     this.initMap();
@@ -116,4 +141,40 @@ export class AlunoMapaPage implements OnInit {
     this.isTracking = false;
     await this.loading.dismiss();
   }
+
+  addMarker(location, image) {
+    let marker = new google.maps.Marker({
+      position: location,
+      map: this.map,
+      icon: image
+    });
+    this.markers.push(marker);
+  }
+
+  setMapOnAll(map) {
+    for (var i = 0; i < this.markers.length; i++) {
+      this.markers[i].setMap(map);
+    }
+  }
+
+  clearMarkers() {
+    this.setMapOnAll(null);
+  }
+
+  deleteMarkers() {
+    this.clearMarkers();
+    this.markers = [];
+  }
 }
+
+export const snapshotToArray = snapshot => {
+  let returnArr = [];
+
+  snapshot.forEach(childSnapshot => {
+      let item = childSnapshot.val();
+      item.key = childSnapshot.key;
+      returnArr.push(item);
+  });
+
+  return returnArr;
+};

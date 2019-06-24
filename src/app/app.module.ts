@@ -23,6 +23,9 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
+import { Device } from '@ionic-native/device/ngx';
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -40,11 +43,12 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
     StatusBar,
     SplashScreen,
     LocalNotifications,
+    Device,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Geolocation,
     AuthService,
     InAppBrowser,
-    EmailComposer,
+    EmailComposer
   ],
   bootstrap: [AppComponent]
 })
