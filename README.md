@@ -5,6 +5,6 @@ BusIFPI é um aplicativo com a finalidade de rastrear em tempo real o ônibus es
 
 O aplicativo foi produzido com Ionic Framework, Angular e como base de dados o Firebase.<br/>
 
-<img src="https://drive.google.com/open?id=15zDE6vPprdKIV2DfwYtWSR5bry32eFOj">
-![](https://drive.google.com/open?id=161XpnTOBUowZp6U9EzoWejtwqbV6shK0)
-![](https://drive.google.com/open?id=165DhfBAwbAq61z_ivsI1YGjxL89Z4hq9)
+![Start Screen](https://i.imgur.com/MNXADZ3.jpg)
+![User Screen](https://i.imgur.com/qoZfAHH.jpg)
+![Map Screen with routes](https://i.imgur.com/Khp87bJ.jpg)
